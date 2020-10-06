@@ -59,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var judge4 = 0;
   var judge5 = 0;
 
-  //音を止める
-  var music_stop = 0;
+  //音楽を鳴らす判定
+  var music = 0;
 
   //各スイッチの値を表示
   //1個目
@@ -106,24 +106,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (switch_text1 == "設定しました" && set_time1 == now_time) {
       count1 = 1;
-      _player.loop('sounds/a.mp3');
+      play();
     }
     if (switch_text2 == "設定しました" && set_time2 == now_time) {
       count2 = 1;
-      _player.loop('sounds/a.mp3');
+      play();
     }
     if (switch_text3 == "設定しました" && set_time3 == now_time) {
       count3 = 1;
-      _player.loop('sounds/a.mp3');
+      play();
     }
     if (switch_text4 == "設定しました" && set_time4 == now_time) {
       count4 = 1;
-      _player.loop('sounds/a.mp3');
+      play();
     }
     if (switch_text5 == "設定しました" && set_time5 == now_time) {
       count5 = 1;
-      _player.loop('sounds/a.mp3');
+      play();
     }
+
 
     setState(() => judge1 = count1);
     setState(() => judge2 = count2);
@@ -132,7 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() => judge5 = count5);
   }
 
+    //音楽の再生と停止の関数
+  play() async {
+    _player2 = await _player.loop('sounds/a.mp3');
+    if ( music == 1) {
+      _player2.stop();
+    }
+  }
 
+  stop() async {
+    _player2.stop();
+  }
 
 
   //1個目の時間を設定する関数
@@ -446,6 +457,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("stop"),
               color: Colors.green,
               textColor:Colors.white,
+              onPressed: stop,
             ),
 
       /*floatingActionButton: FloatingActionButton(
